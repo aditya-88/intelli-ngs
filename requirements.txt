@@ -1,0 +1,6 @@
+tensorflow
+pandas
+xlrd
+openpyxl
+scikit-allel
+myvariant
