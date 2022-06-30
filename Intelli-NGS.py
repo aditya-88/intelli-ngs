@@ -13,6 +13,7 @@ import pandas as pd
 import os
 import allel
 import myvariant
+import numpy as np
 mv = myvariant.MyVariantInfo()
 hg = "hg38"
 
@@ -63,8 +64,9 @@ def IntelliNGS(file, genome_ver):
     df["TYPE"].replace(to_replace="ins", value=2, inplace=True)
     df["TYPE"].replace(to_replace="del", value=3, inplace=True)
     df["TYPE"].replace(to_replace="complex", value=4, inplace=True)
-    results = model.predict_classes(df.values)
-    results_prob = model.predict_proba(df.values)
+    results_prob = model.predict(df.values)
+    results = np.argmax(results_prob, axis=-1)
+    print(results)
     df['IntelliNGS'] = results
     output = pd.DataFrame()
     output['Chromosome'] = variations['variants/CHROM']
